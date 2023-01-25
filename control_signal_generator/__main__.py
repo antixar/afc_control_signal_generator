@@ -33,6 +33,7 @@ def generate(start_digit, count, files):
             words += [line.strip() for line in ff]
     if count > len(words):
         raise SystemExit("There are words less than needed limit")
+    words = list(set(words))
     random.shuffle(words)
 
     for i in range(count):
