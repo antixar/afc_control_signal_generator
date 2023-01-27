@@ -25,14 +25,14 @@ def main():
 
     args = parser.parse_args()
     for signal in generate(args.start, args.count, [v for k, v in words.items() if k in args.word]):
-        print(signal)
+        print(signal.decode())
 
 
 def generate(start_digit, count, files):
     words = []
     for f in files:
         with open(f) as ff:
-            words += [line.strip() for line in ff]
+            words += [line.strip().encode("utf-8") for line in ff]
     if count > len(words):
         raise SystemExit("There are words less than needed limit")
     words = list(set(words))
@@ -41,7 +41,7 @@ def generate(start_digit, count, files):
     for i in range(count):
         word =words[i]
         if not word.isdigit():
-            word += "-" + str(start_digit + i)
+            word += "-".encode("utf-8") + str(start_digit + i).encode("utf-8")
         yield word.upper()
 
 
